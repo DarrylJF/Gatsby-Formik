@@ -1,8 +1,9 @@
 import * as React from "react"
 import { Formik, Field, Form, useField } from "formik"
 import * as Yup from "yup"
-import { TextField, Button } from "@material-ui/core"
+import { TextField, Button as MuiButton } from "@material-ui/core"
 import Layout from "../components/layout"
+import Button from "../components/Button"
 
 const MyTextField = ({ placeholder, variant, label, rows, ...props }) => {
   console.log("PROPS", props)
@@ -43,6 +44,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <h1>Formik React</h1>
+      <Button>TEST</Button>
       <Formik
         validationSchema={validationSchema}
         initialValues={{ firstName: "", lastName: "", message: "" }}
@@ -118,7 +120,7 @@ const IndexPage = () => {
                 />
               </div>
               <div>
-                <Button
+                <MuiButton
                   style={{ marginTop: "1rem" }}
                   disabled={isSubmitting}
                   variant={"contained"}
@@ -126,7 +128,7 @@ const IndexPage = () => {
                   type={"submit"}
                 >
                   Submit
-                </Button>
+                </MuiButton>
               </div>
               <pre>{JSON.stringify(props, null, 2)}</pre>
             </Form>
