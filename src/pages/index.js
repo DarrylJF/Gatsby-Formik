@@ -1,29 +1,140 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-
+import { Formik, Field, Form, useField } from "formik"
+import * as Yup from "yup"
+import { TextField, Button } from "@material-ui/core"
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["AUTO", "WEBP", "AVIF"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
+const MyTextField = ({ placeholder, variant, label, rows, ...props }) => {
+  console.log("PROPS", props)
+  const [field, meta] = useField(props)
+  console.log("FIELD-META", field, meta)
+  const errorText = meta.error && meta.touched ? meta.error : ""
+  return (
+    <TextField
+      {...field}
+      helperText={errorText}
+      placeholder={placeholder}
+      error={!!errorText}
+      multiline
+      variant={variant}
+      label={label}
+      rows={rows}
     />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
-  </Layout>
-)
+  )
+}
+
+const validationSchema = Yup.object({
+  firstName: Yup.string().required().max(10),
+  lastName: Yup.string().required().max(10),
+  message: Yup.string().required().max(50)
+})
+
+const IndexPage = () => {
+  const encode = data => {
+    return Object.keys(data)
+      .map(
+        key =>
+          encodeURIComponent(key) +
+          "=" +
+          encodeURIComponent(data[key])
+      )
+      .join("&")
+  }
+  return (
+    <Layout>
+      <h1>Formik React</h1>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={{ firstName: "", lastName: "", message: "" }}
+        // onSubmit={(data, { setSubmitting, resetForm }) => {
+        //     setSubmitting(true)
+        //     // make async call
+        //     console.log('SUBMIT:', data)
+        //     setSubmitting(false)
+        //     resetForm(true)
+        // }}
+        onSubmit={(values, actions) => {
+          fetch("/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: encode({
+              "form-name": "formik-demo",
+              ...values
+            })
+          })
+            .then(() => {
+              alert("Form successfully submitted")
+              actions.resetForm()
+            })
+            .catch(err => {
+              console.log(err)
+            })
+            .finally(() => actions.setSubmitting(false))
+        }}
+      >
+        {props => {
+          console.log("FORMIK PROPS", props)
+          const { isSubmitting } = props
+          return (
+            <Form name={"formik-demo"} data-netlify={true}>
+              <MyTextField
+                name={"firstName"}
+                type={"input"}
+                placeholder={"First Name"}
+              />
+              <Field
+                type={"hidden"}
+                name={"form-name"}
+                value={"formik-demo"}
+              />
+              <div style={{ marginTop: "1rem" }}>
+                <MyTextField
+                  name={"lastName"}
+                  type={"input"}
+                  placeholder={"Last Name"}
+                />
+                <Field
+                  type={"hidden"}
+                  name={"form-name"}
+                  value={"formik-demo"}
+                />
+              </div>
+              <div style={{ marginTop: "1rem" }}>
+                <MyTextField
+                  name={"message"}
+                  multiline
+                  rows={6}
+                  type={"input"}
+                  label={"Message:"}
+                  placeholder={"Type message here..."}
+                  variant={"outlined"}
+                />
+                <Field
+                  type={"hidden"}
+                  name={"form-name"}
+                  value={"formik-demo"}
+                />
+              </div>
+              <div>
+                <Button
+                  style={{ marginTop: "1rem" }}
+                  disabled={isSubmitting}
+                  variant={"contained"}
+                  color={"primary"}
+                  type={"submit"}
+                >
+                  Submit
+                </Button>
+              </div>
+              <pre>{JSON.stringify(props, null, 2)}</pre>
+            </Form>
+          )
+        }}
+      </Formik>
+    </Layout>
+  )
+}
 
 export default IndexPage
