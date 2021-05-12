@@ -39,15 +39,9 @@ export default function userReducer(state = readLocalStorage('user'), action) {
             deleteLocalStorage('user')
             deleteCookie('user_token')
             deleteCookie('user_refresh_token')
-
-            // delete legacy tokens
-            deleteCookie('access_token', false)
-            deleteCookie('refresh_token', false)
-            deleteCookie('hub_v1_referred_v2', false)
-            deleteCookie('hub_v1_user_id', false)
             return null
         // occurs when a user is logged in in a separate tab, and a request is made back in the old tab (the user still
-        // appears as the old one, but the requests go throuh as a new one, this instead forces an update with the new
+        // appears as the old one, but the requests go through as a new one, this instead forces an update with the new
         // logged in user).
         case 'USER_UPDATE_FROM_TOKEN':
             user = {

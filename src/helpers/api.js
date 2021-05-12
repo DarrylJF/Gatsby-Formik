@@ -6,7 +6,7 @@
 //         ? `https://staging.260438f79400.com`
 //         : `https://260438f79400.com`)
 
-export const API_ROUTE = 'https://staging.260438f79400.com'
+export const API_ROUTE = 'https://api.skippermyboat.com'
 
 export const USER_REGISTER = API_ROUTE + '/auth/register'
 export const USER_LOGIN = API_ROUTE + '/auth/login'

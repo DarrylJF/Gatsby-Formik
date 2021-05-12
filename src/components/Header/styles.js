@@ -4,17 +4,20 @@ export default theme => css`
     .root {
         flex-grow: 1;
 
+        .main-header {
+            background-color: royalblue;
+        }
+
         .menu-button {
-            margin-right: ${theme.spacing(2)};
+            margin-right: 1rem;
         }
 
         .title {
             flex-grow: 1;
-            color: red;
         }
 
         .button {
-            color: green !important;
+            color: red;
         }
     }
 `

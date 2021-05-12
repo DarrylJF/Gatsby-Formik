@@ -1,4 +1,4 @@
-import { getUserFromToken, loginLegacyUser } from '../../helpers/auth'
+import { getUserFromToken } from '../../helpers/auth'
 
 export const loginUser = data => async dispatch => {
     try {
@@ -7,10 +7,6 @@ export const loginUser = data => async dispatch => {
             refreshToken: data.refresh_token,
         })
         const { user, token, refreshToken } = userData
-
-        // Legacy support - store legacy as cookies for Hub v1 to utilise
-        // sets cookies on this domain for access_token, refresh_token, hub_v1_referred_v2, hub_v1_user_id
-        await loginLegacyUser(token)
 
         return dispatch({
             type: 'USER_LOGIN',

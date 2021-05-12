@@ -1,12 +1,14 @@
 import * as React from 'react'
-import Layout from '../components/Layout/layout'
+import Layout from '../components/Layout'
 import LoginForm from '../components/LoginForm'
+import { useSelector } from 'react-redux'
 
 const IndexPage = () => {
+    const user = useSelector(({ user }) => user)
+
     return (
         <Layout>
-            <h1>Formik React</h1>
-            <LoginForm />
+            {!!user ? <div>hello {user.firstName}</div> : <LoginForm />}
         </Layout>
     )
 }

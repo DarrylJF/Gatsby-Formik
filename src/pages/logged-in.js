@@ -1,11 +1,11 @@
 import React from 'react'
-import Layout from '../components/Layout/layout'
+import Index from '../components/Layout'
 
 const LoggedIn = () => {
     return (
-        <Layout>
+        <Index>
             <h1>Logged In</h1>
-        </Layout>
+        </Index>
     )
 }
 
