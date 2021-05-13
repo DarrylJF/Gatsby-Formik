@@ -5,7 +5,12 @@ export default theme => css`
         flex-grow: 1;
 
         .main-header {
-            background-color: royalblue;
+            background-color: #f17c03;
+
+            svg {
+                font-size: 2rem;
+                color: #fff;
+            }
         }
 
         .menu-button {
@@ -17,7 +22,8 @@ export default theme => css`
         }
 
         .button {
-            color: red;
+            color: #ffffff;
+            border: 1px solid #ffffff;
         }
     }
 `

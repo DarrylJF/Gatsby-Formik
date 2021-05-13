@@ -4,12 +4,12 @@ import { useTheme } from '@material-ui/core/styles'
 import styles from './styles'
 import { Button as MuiButton } from '@material-ui/core'
 
-const Button = ({ children }) => {
+const Button = ({ children, variant }) => {
     const theme = useTheme()
     console.log(styles(theme))
     return (
         <div css={styles(theme)}>
-            <MuiButton className={'button'} variant='contained'>
+            <MuiButton className={'button'} variant={variant}>
                 {children}
             </MuiButton>
         </div>

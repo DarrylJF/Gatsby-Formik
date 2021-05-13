@@ -3,17 +3,18 @@ import {
     AppBar,
     Toolbar,
     IconButton,
-    Button,
+    Button as MuiButton,
     Avatar,
     Menu,
     MenuItem,
     Typography,
+    Divider,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { useTheme } from '@material-ui/core/styles'
 import styles from './styles'
 import { useDispatch, useSelector } from 'react-redux'
-// import { navigate } from 'gatsby'
+import { Link } from 'gatsby'
 import { logoutUser } from '../../store/user/actions'
 
 const Header = () => {
@@ -59,7 +60,11 @@ const Header = () => {
                                     onClick={handleMenu}
                                     color='inherit'
                                 >
-                                    <Avatar alt='Remy Sharp' />
+                                    <Avatar
+                                        alt='Remy Sharp'
+                                        style={{ marginRight: '5px' }}
+                                    />
+                                    <p>{user.firstName}</p>
                                 </IconButton>
                                 <Menu
                                     id='menu-appbar'
@@ -74,18 +79,22 @@ const Header = () => {
                                         horizontal: 'right',
                                     }}
                                     open={open}
-                                    onClose={handleClose}
                                 >
                                     <MenuItem onClick={handleClose}>
-                                        Profile
+                                        <Link to='edit-account'>
+                                            Edit Account
+                                        </Link>
                                     </MenuItem>
+                                    <Divider />
                                     <MenuItem onClick={handleLogout}>
                                         Logout
                                     </MenuItem>
                                 </Menu>
                             </div>
                         ) : (
-                            <Button className='button'>LOGIN</Button>
+                            <MuiButton className='button' variant='outlined'>
+                                LOGIN
+                            </MuiButton>
                         )}
                     </Toolbar>
                 </AppBar>

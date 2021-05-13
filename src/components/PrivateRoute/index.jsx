@@ -5,6 +5,7 @@ import { useSnackbar } from '../Snackbar'
 import { navigate } from 'gatsby'
 
 const PrivateRoute = ({ component: Component, ...props }) => {
+    console.log('anything')
     const location = useLocation()
     const [openSnackbar] = useSnackbar()
     // Extract user and website from Redux

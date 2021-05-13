@@ -11,7 +11,7 @@ const MyTextField = ({ placeholder, variant, label, type, ...props }) => {
             helperText={errorText}
             placeholder={placeholder}
             error={!!errorText}
-            variant={variant}
+            variant='outlined'
             label={label}
             type={type}
         />

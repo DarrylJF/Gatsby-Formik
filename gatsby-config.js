@@ -9,6 +9,7 @@ module.exports = {
         `gatsby-plugin-image`,
         `gatsby-plugin-emotion`,
         `gatsby-plugin-sass`,
+        `gatsby-plugin-remove-trailing-slashes`,
         {
             resolve: `gatsby-plugin-material-ui`,
             options: {

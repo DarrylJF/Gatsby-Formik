@@ -21,3 +21,7 @@ body {
     font-feature-settings: "kern", "liga", "clig", "calt";
 }
 
+* {
+    margin: 0;
+}
+

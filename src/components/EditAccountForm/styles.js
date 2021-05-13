@@ -1,12 +1,17 @@
 import { css } from '@emotion/react'
 
 export default theme => css`
-    .box {
+    .paper {
         h1 {
             text-align: center;
             padding: 10px;
-            margin-bottom: 1rem;
+            margin: 0.5rem 0 1rem;
         }
+    }
+
+    h4 {
+        text-align: center;
+        padding: 10px;
     }
 
     .flex-form {
